@@ -1,7 +1,7 @@
-package bb
+package afu
 
 import "github.com/jmoiron/sqlx"
 
-type BbBbModel struct {
+type AfuBbModel struct {
 	Db *sqlx.DB
 }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table tr td{width: 30px;height: 30px;}
+        .green{background: green}
+    </style>
+</head>
+<body>
+   <div id="box"></div>
+</body>
+<script>
+
+
+    class Box {
+        dom
+        constructor(){
+          this.dom=document.getElementById("box")
+            var str=""
+            for (var i = 0; i < 10; i++){
+                str+="<tr>"
+                for (var j = 0; j < 10; j++){
+                    var _id=this.getId(i,j)
+                    str+="<td id='"+_id+"'>"+"</td>"
+                }
+                str+="<tr>"
+            }
+          this.dom.innerHTML="<table>"+str+"</table>"
+        }
+        getId(x,y){
+            return "td_"+x+"_"+y;
+        }
+        getTd(x,y){
+           return document.getElementById(this.getId(x,y))
+        }
+
+    }
+
+   var b= new Box()
+
+    var obj={
+        word:"鸡飞蛋打",
+        position:{
+            x:0,
+            y:0
+        },
+        direction:true
+    }
+    var obj2={
+        word:"飞檐走壁",
+        position:{
+            x:0,
+            y:1
+        },
+        direction:false
+    }
+
+
+
+
+
+    fill(obj)
+    fill(obj2)
+
+
+
+
+    function fill(obj) {
+        var x=obj.position.x
+        var y=obj.position.y
+        for (var i in obj.word){
+            b.getTd(x,y).innerHTML=obj.word[i]
+            if (obj.direction){
+                y++
+            }else{
+                x++
+            }
+        }
+    }
+
+
+
+</script>
+</html>
