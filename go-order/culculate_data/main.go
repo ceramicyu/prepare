@@ -104,20 +104,20 @@ func calculateByProjectId(ProjectId int32) {
 		Month int
 	}
 	months := []WageFrozen{}
-	afu.Db.Select(&months, "SELECT month FROM wage_frozen WHERE status = $1 order by `month` desc ", STATUS_CONFIRM)
+	err=afu.Db.Select(&months, "SELECT month FROM wage_frozen WHERE status = $1 order by `month` desc ", STATUS_CONFIRM)
 	if len(months) > 0 {
 		noFrozenFirstDate = months[0].Month
 	}
 	t, _ := time.Parse("2006-01-02 15:04:05", "2017-04-25 09:14:00")
 	startTime := int(t.Unix())
 	userStaffs := []afu2.OrderHuliStaffRelationModel{}
-	afu.Db.Select(&userStaffs, "SELECT order_huli_id from order_huli_staff_relation where project_id = $1 and status = $2 and ( end_time = 0 or end_time >= $3)",
+	err=afu.Db.Select(&userStaffs, "SELECT order_huli_id from order_huli_staff_relation where project_id = $1 and status = $2 and ( end_time = 0 or end_time >= $3)",
 		ProjectId, BOOL_YES, startTime)
 	noFrozenFirstDate = noFrozenFirstDate
 	for _, userStaff := range userStaffs {
 		userStaff.UserStaffId = userStaff.UserStaffId
 		projectConfig := []afu2.ProjectConfigModel{}
-		afu.Db.Select(&projectConfig, "SELECT * FROM project_config where project_id = $1;", ProjectId)
+		err=afu.Db.Select(&projectConfig, "SELECT * FROM project_config where project_id = $1;", ProjectId)
 		commissionDays := 0
 		if len(projectConfig) > 0 {
 			commissionDays = projectConfig[0].CommissionDays
@@ -125,6 +125,8 @@ func calculateByProjectId(ProjectId int32) {
 		commissionDays = commissionDays
 
 	}
+
+
 }
 
 func calculateByStaffId() {
@@ -149,7 +151,7 @@ func main() {
 	date := fmt.Sprintf("%04d-%02d-%02d", tm.Year(), common.Month(tm.Month()), tm.Day())
 
 	fmt.Println(date)
-
+	TestDb()
 }
 
 func TestDb() {
@@ -158,9 +160,8 @@ func TestDb() {
 	}
 	b.GetPriceHomeInfo()
 
-	city := city.SsoCityModel{
-		Db: DbPool["db_sso_city"][5],
-	}
+	c := city.NewSsoCityModel(DbPool["db_sso_city"][5])
 
-	city.GetCityInfo()
+    fmt.Println("+++++++++",c.City)
+	c.City.GetCityInfo()
 }

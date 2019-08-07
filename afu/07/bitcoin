@@ -1,0 +1,48 @@
+
+1.假日与调休日期
+
+         发现日期重复问题
+         //TODO
+        ALTER TABLE `holiday`
+        ADD UNIQUE INDEX `date` (`date`) USING BTREE ;
+
+
+        按时间顺序显示
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
