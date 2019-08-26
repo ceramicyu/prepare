@@ -1,0 +1,22 @@
+CREATE TABLE `staff_overtime1111` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `project_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '项目id',
+  `department_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管家科室id',
+  `department_type` tinyint(3) NOT NULL DEFAULT '0' COMMENT '科室类型 1:普通 2:康复 3:产科 4:运送',
+  `user_staff_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '员工id',
+  `month` int(6) unsigned NOT NULL DEFAULT '0' COMMENT '月份',
+  `date` int(8) unsigned NOT NULL DEFAULT '0' COMMENT '加班日期(20190101)',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1:晨间护理 2:晚间护理 3: 夜间加班',
+  `hour` int(10) NOT NULL DEFAULT '0' COMMENT '加班时长(小时)',
+  `staff_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '员工类型 DicUserStaff::$TYPE_OPTIONS',
+  `start_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `end_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `create_manager_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
+  `edit_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `edit_manager_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
+  `status` tinyint(3) NOT NULL DEFAULT '1' COMMENT '1:有效 -1:无效',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_project` (`project_id`) USING BTREE,
+  KEY `idx_department` (`department_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='管家员工加班表';
